@@ -12,10 +12,9 @@ import java.util.List;
 
 public class ParserArbitr {
 
-    private static final String DB_URL = "jdbc:postgresql://10.10.10.77:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASS = "100200300400";
-   // private static final String DEFAULT_SCHEMA = "form2";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/your_base";
+    private static final String USER = "user";
+    private static final String PASS = "pass";
 
     public void updateArbitr(String theSroId, String arbitrInnNumber, String arbitrSnilsNumber,
                               String arbitrSurname, String arbitrName, String arbitrSecondname,

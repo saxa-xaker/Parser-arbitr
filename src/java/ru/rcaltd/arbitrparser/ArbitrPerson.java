@@ -1,5 +1,6 @@
 package ru.rcaltd.arbitrparser;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class ArbitrPerson {
@@ -13,14 +14,14 @@ public class ArbitrPerson {
     private String arbitrInn;
     private String arbitrSnils;
     private String arbitrEfrsbRegNumber;
-    private Date arbitrRosreestrRegDate;
-    private Date arbitrSroEntryDate;
+    private Timestamp arbitrRosreestrRegDate;
+    private Timestamp arbitrSroEntryDate;
     private boolean isArbitrInTheSro;
     private boolean isArbitrActive;
 
     public ArbitrPerson(String theSroId, String userId, String arbitrSurname, String arbitrName,
                         String arbitrSecondname, String arbitrInn, String arbitrSnils, String arbitrEfrsbRegNumber,
-                        Date arbitrRosreestrRegDate, Date arbitrSroEntryDate, boolean isArbitrInTheSro,
+                        Timestamp arbitrRosreestrRegDate, Timestamp arbitrSroEntryDate, boolean isArbitrInTheSro,
                         boolean isArbitrActive) {
         this.theSroId = theSroId;
         this.userId = userId;
@@ -112,7 +113,7 @@ public class ArbitrPerson {
         return arbitrRosreestrRegDate;
     }
 
-    public void setArbitrRosreestrRegDate(Date arbitrRosreestrRegDate) {
+    public void setArbitrRosreestrRegDate(Timestamp arbitrRosreestrRegDate) {
         this.arbitrRosreestrRegDate = arbitrRosreestrRegDate;
     }
 
@@ -120,7 +121,7 @@ public class ArbitrPerson {
         return arbitrSroEntryDate;
     }
 
-    public void setArbitrSroEntryDate(Date arbitrSroEntryDate) {
+    public void setArbitrSroEntryDate(Timestamp arbitrSroEntryDate) {
         this.arbitrSroEntryDate = arbitrSroEntryDate;
     }
 

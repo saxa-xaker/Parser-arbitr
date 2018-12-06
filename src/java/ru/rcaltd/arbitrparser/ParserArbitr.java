@@ -6,8 +6,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +18,16 @@ public class ParserArbitr {
     static String arbitrInnNumber;
     static String arbitrSnilsNumber;
     static String arbitrEfrsbRegNumber;
-    static String arbitrRosreestrRegDate;
+    static String arbitrRreestrRegDate;
     static String arbitrSroEntryDate;
     static String arbitrEfrsbUrlAddress;
-    static String theSroId;
+    static String theSroFullname;
 
-    public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
+    public void getArbitrsData() throws IOException
 
+    {
 
-        for (int i = 101; i < 1000; i++) {
+        for (int i = 0; i < 999; i++) {
             String cookieVar = "AmListSearch=SroId=&SroName=&FirstName=&LastName=&MiddleName=&RegNumber=" + i + "&PageNumber=0&WithPublicatedMessages=False; SroList=Name=&RegNumber=&PageNumber=0; bankrotcookie=c5f7cb1791b4afe112f1578e83c9c350; debtorsearch=typeofsearch=Organizations&orgname=%d0%9c%d0%b8%d1%85%d0%b5%d0%b5%d0%b2&orgaddress=&orgregionid=&orgogrn=&orginn=&orgokpo=&OrgCategory=&prslastname=&prsfirstname=&prsmiddlename=&prsaddress=&prsregionid=&prsinn=&prsogrn=&prssnils=&PrsCategory=&pagenumber=0; _ym_d=1543514069; _ym_uid=1543514069537615901;";
             List<Arbitr> arbitrList = new ArrayList<>();
             List<Sro> sroList = new ArrayList<>();
@@ -72,9 +71,9 @@ public class ParserArbitr {
                         Element el = arbitrAnketa1.getElementById("ctl00_cphBody_trInn");
                         if (el != null) {
                             arbitrInnNumber = el.text() != null ? el.text().replace("ИНН ", "") : "";
-                            System.out.print(arbitrInnNumber + " ");
+                            //                     System.out.print(arbitrInnNumber + " ");
                         } else {
-                            arbitrInnNumber = "Данные отсутствуют ";
+                            arbitrInnNumber = "Данные отсутствуют";
                         }
 
                     });
@@ -88,10 +87,9 @@ public class ParserArbitr {
                         Element el = arbitrAnketa2.getElementById("ctl00_cphBody_trSnils");
                         if (el != null) {
                             arbitrSnilsNumber = el.text() != null ? el.text().replace("СНИЛС ", "") : "";
-
-                            System.out.print(arbitrSnilsNumber + " ");
+                            //                      System.out.print(arbitrSnilsNumber + " ");
                         } else {
-                            arbitrSnilsNumber = "Данные отсутствуют ";
+                            arbitrSnilsNumber = "Данные отсутствуют";
                         }
                     });
 
@@ -106,10 +104,9 @@ public class ParserArbitr {
                         Element el = arbitrAnketa3.getElementById("ctl00_cphBody_trRegNumFrs");
                         if (el != null) {
                             arbitrEfrsbRegNumber = el.text() != null ? el.text().replace("Рег. номер ", "") : "";
-
-                            System.out.print(arbitrEfrsbRegNumber + " ");
+                            //          System.out.print(arbitrEfrsbRegNumber + " ");
                         } else {
-                            arbitrEfrsbRegNumber = "Данные отсутствуют ";
+                            arbitrEfrsbRegNumber = "Данные отсутствуют";
                         }
                     });
 
@@ -122,11 +119,10 @@ public class ParserArbitr {
                     arbitrAnketas4.forEach(arbitrAnketa4 -> {
                         Element el = arbitrAnketa4.getElementById("ctl00_cphBody_trRegDate");
                         if (el != null) {
-                            arbitrRosreestrRegDate = el.text() != null ? el.text().replace("Дата регистрации в Росреестре ", "") : "";
-
-                            System.out.print(arbitrRosreestrRegDate + " ");
+                            arbitrRreestrRegDate = el.text() != null ? el.text().replace("Дата регистрации в Росреестре ", "") : "";
+                            //              System.out.print(arbitrRreestrRegDate + " ");
                         } else {
-                            arbitrRosreestrRegDate = "Данные отсутствуют ";
+                            arbitrRreestrRegDate = "Данные отсутствуют";
                         }
                     });
 
@@ -137,8 +133,14 @@ public class ParserArbitr {
                     Elements arbitrAnketas5 = null;
                     arbitrAnketas5 = arbitrPerson.getElementById("ctl00_cphBody_tblSroCardInfo").children();
                     arbitrAnketas5.forEach(arbitrAnketa5 -> {
-                        theSroId = arbitrAnketa5.getElementById("ctl00_cphBody_trSroName").text().replace("СРО ", "");
-                        System.out.print(theSroId.replace("Членство в прекращено", "Членство в СРО прекращено") + " ");
+                        Element el = arbitrAnketa5.getElementById("ctl00_cphBody_trSroName");
+                        if (el != null) {
+                            theSroFullname = el.text() != null ? el.text().replace("СРО ", "") : "";
+                            theSroFullname = theSroFullname.replace("Членство в прекращено", "Членство в СРО прекращено");
+                            //                 System.out.print(theSroFullname);
+                        } else {
+                            theSroFullname = "Членство в СРО прекращено";
+                        }
                     });
 
                     arbitrPerson = Jsoup.connect("http://bankrot.fedresurs.ru" + arbitrEfrsbUrlAddress)
@@ -151,21 +153,20 @@ public class ParserArbitr {
                         Element el = arbitrAnketa6.getElementById("ctl00_cphBody_trDateBegin");
                         if (el != null) {
                             arbitrSroEntryDate = el.text() != null ? el.text().replace("Дата вступления ", "") : "";
-                            System.out.print(arbitrSroEntryDate + " ");
+                            //               System.out.print(arbitrSroEntryDate + " ");
                         } else {
-                            arbitrSroEntryDate = "Данные отсутствуют ";
+                            arbitrSroEntryDate = "Данные отсутствуют";
                         }
                     });
                     System.out.println();
                     System.out.println();
 
-                    //        SqlUtil.execute("delete from core.tag_response");
                     SqlUtil.execute("INSERT INTO form2.arbitr (arbitr_surname, arbitr_name,"
-                            + "arbitr_secondname, arbitr_inn_number, arbitr_snils_number,"
-                            + "arbitr_efrsb_reg_number, the_sro_id, arbitr_efrsb_url) VALUES ('"
+                            + "arbitr_secondname, arbitr_inn_number, arbitr_snils_number, arbitr_rreestr_reg_date,"
+                            + "arbitr_sro_entry_date, arbitr_efrsb_reg_number, the_sro_fullname, arbitr_efrsb_url_address) VALUES ('"
                             + arbitrSurname + "', '" + arbitrName + "', '" + arbitrSecondname + "', '"
-                            + arbitrInnNumber + "', '" + arbitrSnilsNumber + "', '" + arbitrEfrsbRegNumber + "', '"
-                            + theSroId + "', '" + arbitrEfrsbUrlAddress + "');");
+                            + arbitrInnNumber + "', '" + arbitrSnilsNumber + "', '" + arbitrRreestrRegDate + "', '" + arbitrSroEntryDate + "', '" + arbitrEfrsbRegNumber + "', '"
+                            + theSroFullname + "', '" + arbitrEfrsbUrlAddress + "');");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -177,4 +178,5 @@ public class ParserArbitr {
         }
 
     }
+
 }

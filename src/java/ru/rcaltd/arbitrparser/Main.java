@@ -10,7 +10,7 @@ public class Main {
         ParserArbitr parserArbitr = new ParserArbitr();
         parserArbitr.getArbitrsData();
 
-        ParserSro parserSro = new ParserSro()
+        ParserSro parserSro = new ParserSro();
         parserSro.getSrosData();
     }
 }
